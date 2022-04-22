@@ -30,7 +30,7 @@ fn main() {
 }
 
 fn run() -> Result<()> {
-    let args = env::args().collect::<Vec<String>>();
+    let args = env::args().collect::<Vec<_>>();
     let mut args = args.iter();
     args.next();
     let mut charset_spec = None;

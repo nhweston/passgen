@@ -140,5 +140,21 @@ pub fn parse_charset_spec(charset_spec: &String) -> Result<Vec<u8>> {
             }
         }
     }
-    return Ok(result.iter_ones().map(|i| i as u8).collect());
+    match state {
+        Escape | RangeEscape(_) =>
+            Err(anyhow!("unterminated escape sequence")),
+        Range(_) =>
+            Err(anyhow!("unterminated character range")),
+        _ => {
+            if invert {
+                let tmp = result;
+                result = typeable;
+                result &= !tmp;
+            }
+            if result.not_any() {
+                return Err(anyhow!("character set is empty"))
+            }
+            Ok(result.iter_ones().map(|i| i as u8).collect())
+        }
+    }
 }
