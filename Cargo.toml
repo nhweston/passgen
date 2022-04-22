@@ -1,0 +1,23 @@
+[package]
+name = "passgen"
+version = "0.1.0"
+authors = ["Nicholas Weston <nhweston1997@gmail.com>"]
+edition = "2021"
+
+[dependencies]
+anyhow = "^1.0"
+bitvec = "^1.0"
+num-bigint = "^0.4"
+num-integer = "^0.1"
+num-traits = "^0.2"
+rand = "^0.8"
+
+[profile.release]
+codegen-units = 1
+debug = false
+debug-assertions = false
+incremental = false
+lto = true
+opt-level = 3
+overflow-checks = false
+panic = "abort"
