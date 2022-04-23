@@ -42,7 +42,7 @@ pub fn generate(
     let mut value = {
         let total_chars = password_len * num_passwords;
         let num_bits = BigUint::from(base).pow(total_chars as u32).bits();
-        let num_bytes = (num_bits + 1) / 8;
+        let num_bytes = (num_bits / 8) + 1;
         let mut buffer = vec![0u8; num_bytes as usize];
         OsRng.fill_bytes(&mut buffer);
         BigUint::from_bytes_le(&buffer)
